@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 import os
 from setuptools import setup
 
@@ -5,13 +6,13 @@ README = open(os.path.join(os.path.dirname(__file__), 'README.rst')).read()
 
 setup(
     name = 'django-localflavor-au',
-    version = '1.0',
+    version = '1.0-ionata1',
     description = 'Country-specific Django helpers for Australia.',
     long_description = README,
     author = 'Django Software Foundation',
-    author_email = 'foundation@djangoproject.com',
+    author_email = 'webmaster@ionata.com.au',
     license='BSD',
-    url = 'https://github.com/django/django-localflavor-au',
+    url = 'https://bitbucket.org/ionata/django-localflavor-au',
     packages = ['django_localflavor_au'],
     include_package_data = True,
     classifiers = [
