@@ -33,11 +33,15 @@ class AUPostCodeField(RegexField):
             r'^\d{4}$', max_length, min_length, *args, **kwargs)
 
 
-class AUPhoneNumberField(Field):
+class AUPhoneNumberField(CharField):
     """Australian phone number field."""
     default_error_messages = {
         'invalid': 'Phone numbers must contain 10 digits.',
     }
+
+    def __init__(self, default_area_code=None, *args, **kwargs):
+        self.default_area_code = default_area_code
+        super(AUPhoneNumberField, self).__init__(*args, **kwargs)
 
     def clean(self, value):
         """
@@ -47,6 +51,9 @@ class AUPhoneNumberField(Field):
         if value in EMPTY_VALUES:
             return ''
         value = re.sub('(\(|\)|\s+|-)', '', smart_text(value))
+        if len(value) == 8:
+            if self.default_area_code:
+                value = self.default_area_code + value
         phone_match = PHONE_DIGITS_RE.search(value)
         if phone_match:
             return value

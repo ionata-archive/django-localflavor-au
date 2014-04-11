@@ -176,21 +176,28 @@ class AUPhoneNumberField(FormattedNumberField):
                 'Phone number is not a string, it is a {0!r}'.format(
                     type(value)))
 
-        value = self.SEPERATOR_RE.sub('', value)
-        if len(value) == 8:
+        stripped_value = self.SEPERATOR_RE.sub('', value)
+        if len(stripped_value) == 8:
             if self.default_area_code:
-                value = self.default_area_code + value
+                stripped_value = self.default_area_code + stripped_value
             else:
-                raise forms.ValidationError(self.errors['missing_area_code'])
-
-        if self.add_spaces:
-            return self.format_number(value)
-        else:
-            # Else return it plain
+                return value
+        # We only check for 10 or 8, too many alternatives
+        elif len(stripped_value) != 10:
             return value
 
+        if self.add_spaces:
+            return self.format_number(stripped_value)
+        else:
+            # Else return it plain
+            return stripped_value
+
     def formfield(self, **kwargs):
-        defaults = {'max_length': 20}
+        defaults = {
+                'max_length': 20,
+                'default_area_code': self.default_area_code,
+                'form_class': forms.AUPhoneNumberField,
+        }
         defaults.update(kwargs)
         return super(AUPhoneNumberField, self).formfield(**defaults)
 
