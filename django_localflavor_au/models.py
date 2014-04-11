@@ -88,7 +88,7 @@ class FormattedNumberField(CharField):
 
     def get_prep_value(self, value):
         if not value:
-            return None
+            return value
 
         if not isinstance(value, basestring):
             # If it is not a string, I have no idea what to do about it
@@ -168,7 +168,7 @@ class AUPhoneNumberField(FormattedNumberField):
 
     def to_python(self, value):
         if not value:
-            return None
+            return value
 
         # If it is not a string, I have no idea what to do about it
         if not isinstance(value, basestring):
