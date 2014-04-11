@@ -6,7 +6,7 @@ README = open(os.path.join(os.path.dirname(__file__), 'README.rst')).read()
 
 setup(
     name = 'django-localflavor-au',
-    version = '1.0-ionata2',
+    version = '1.0-ionata3',
     description = 'Country-specific Django helpers for Australia.',
     long_description = README,
     author = 'Django Software Foundation',
