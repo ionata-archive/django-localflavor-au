@@ -66,7 +66,7 @@ class FormattedNumberField(CharField):
                  **kwargs):
         self.add_spaces = add_spaces
 
-        kwargs['max_length'] = self.DIGITS
+        kwargs.setdefault('max_length', self.DIGITS)
         super(FormattedNumberField, self).__init__(*args, **kwargs)
         self.validators.append(validators.MinLengthValidator(self.DIGITS))
 
